@@ -46,4 +46,4 @@ Novas funcionalidades, melhorias no código, talvez até uma interface bonitinha
 ---
 
 Obrigado por visitar!  
-Se quiser deixar alguma dica ou feedback, será muito bem-vindo(a). 😄
+Se quiser deixar alguma dica ou feedback, em breve serei um júnior cabeça oca, então qualquer dica é muito bem-vinda 😄.
