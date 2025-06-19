@@ -1,14 +1,19 @@
 import { FastifyRequest, FastifyReply } from "fastify"  
-import { ListUserServices } from '../services/ListUserServices'
+import { ListUserServices } from '../../services/user/register/ListUserService'
 
-
+/**
+ * Controller responsável por listar usuários cadastrados.
+ */
 class ListUserController{
+    /**
+     * Retorna a lista de usuários cadastrados.
+     */
     async handle(request: FastifyRequest, reply: FastifyReply){
         
         const listUserServices = new ListUserServices();
         const users = await listUserServices.execute();
 
-        reply.send(users);
+        reply.send({users});
     } 
 }
 

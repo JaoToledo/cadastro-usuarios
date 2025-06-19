@@ -17,9 +17,11 @@ datasource db {
 // model do banco de dados do registro de conta dos usuarios
 model User {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String 
-  email       String
-  Status      Boolean
+  fullName    String
+  userName    String @unique 
+  email       String @unique
+  password    String 
+  Status      Boolean @default(true)
   created_at  DateTime? @default(now())
   updated_at  DateTime? @default(now())
 
