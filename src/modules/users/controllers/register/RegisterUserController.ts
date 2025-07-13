@@ -1,10 +1,7 @@
-// Controller recebe e responde a requisição. Responsável por receber os dados do cliente (request) e responde o cliente (reply)
-
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { RegisterUserService } from '../../services/user/register/RegisterUserService';
 import { RegisterUserSchema } from '../../schemas';
-import { unknown } from 'zod';
-import { hashPassword } from '../../../../shared/password';
+
 
 /**
  * Controller responsável por registrar um novo usuário.
@@ -15,13 +12,24 @@ class RegisterUserController {
      */
     async handle(request: FastifyRequest, reply: FastifyReply){  
 
-   const {email,fullName,userName,password} = RegisterUserSchema.parse(request.body)
+    try {
+        const {email,fullName,userName,password} = RegisterUserSchema.parse(request.body)
     
-    const userService = new RegisterUserService()                          // <- Inicializando a classe que foi criada em services
-    
-    const user = await userService.execute({ fullName, userName, email, password });            //O executo nada mais é do que o nome do método que foi criado na pasta services, e será chamado.
+    const userService = new RegisterUserService();
+    const result = await userService.execute({ fullName, userName, email, password });  
 
-    reply.send(user)                                                   // <- devoler para a API o que o serviço está devolvendo
+    if (result && "errors" in result) {
+        return reply.status(400).send({ errors: result.errors })
+    }
+
+    reply.send(result); 
+    } catch (error) {
+        if (error instanceof Error) {
+            return reply.status(400).send({ errors: error.message});
+        }
+        return reply.status(400).send({message: 'Unknow error on user register'});
+        
+    }                                 
     }
 } 
 

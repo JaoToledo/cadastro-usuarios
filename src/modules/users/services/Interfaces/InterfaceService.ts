@@ -1,32 +1,33 @@
 /**
  * Parâmetros necessários para deletar um usuário.
+ * @interface DeleteUserProps
+ * @property {string} id - ID único do usuário a ser deletado
+ *
+ * Parâmetros necessários para criar um novo usuário.
+ * @interface RegisterUserProps
+ * @property {string} fullName - Nome completo do usuário
+ * @property {string} userName - Nome do usuário no site
+ * @property {string} email - Email do usuário
+ * @property {string} password - Senha do usuário
+ * @property {string} [confirmPassword] - Confirma senha do usuário
+ *
+ * Parâmetros necessários para login do usuário.
+ * @interface LoginUserProps
+ * @property {string} email - Email do usuário
+ * @property {string} password - Senha do usuário
  */
-export interface DeleteUserProps{
-    /** ID único do usuário a ser deletado */
-    id: string;
-}
 
 /**
- * Parâmetros necessários para criar um novo usuário.
+ * Parâmetros necessários para deletar um usuário.
  */
 export interface RegisterUserProps{ 
-    /** Nome completo do usuário */
     fullName: string;
-    /** Nome do usuário no site */
     userName: string;
-    /** Email do usuário */
     email: string;
-    /** Senha do usuário */
     password: string;
-    /** Confirma senha do usuário */
+  
 }
-
-/**
- * Parâmetros necessários para login do usuário.
- */
 export interface LoginUserProps { 
-    /** Email do usuário */
     email: string;
-    /** Senha do usuário */
     password: string;
 }

@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { LoginUserSchema } from "../../schemas/login-user-schema";
+import { LoginUserSchema } from "../../schemas";
 import { LoginUserService } from '../../services/user/login/LoginUserService'
  
 /**

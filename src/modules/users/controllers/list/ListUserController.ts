@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify"  
-import { ListUserServices } from '../../services/user/register/ListUserService'
+import { ListUserServices } from '../../services/user/list/ListUserService'
 
 /**
  * Controller responsável por listar usuários cadastrados.

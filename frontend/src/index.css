@@ -1,2 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-blue_shape: rgba(0, 225, 255, 1);
+  --color-purple_shape: rgba(110, 0, 255, 1);
+  --color-bg_gray: rgba(32, 32, 32, 1);
+
+  --font-roboto: Roboto
+}
+
+
+.placeholder-labelInput::placeholder {
+  font-family: 'Roboto';
+  font-size: 24px;
+  
+}
+
+

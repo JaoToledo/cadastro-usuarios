@@ -1,133 +1,120 @@
-import type { FormEvent } from "react" 
-import { useState } from 'react'
-import FormatoFundoAzul from '../../assets/images/FormatoFundoAzul.png'
-import { api } from "../../services/api"
-import { getLoginErrorMessage, validateEmail, validatePassword } from "../../utils/Errors/Login/LoginError"
-import { Link, useNavigate } from 'react-router-dom'
+/**
+ * @file index.tsx
+ * @module LoginScreen
+ * @description
+ * Tela de login do sistema. Responsável por renderizar o formulário de autenticação,
+ * gerenciar o envio dos dados para a API, tratar o fluxo de navegação após login
+ * e exibir opções de login social.
+ *
+ * - Utiliza o hook `useLoginForm` para controle e validação do formulário.
+ * - Realiza requisição POST para a rota `/login` da API.
+ * - Armazena o nome do usuário autenticado no localStorage.
+ * - Redireciona para a página inicial após login bem-sucedido.
+ * - Exibe botões para login com Google e LinkedIn (ainda sem integração).
+ * - Inclui links para criação de conta e recuperação de senha.
+ * - Utiliza componentes reutilizáveis para layout, tipografia e botões.
+ *
+ * @see src/hooks/useLoginForm.ts
+ * @see src/services/api.ts
+ * @see src/components/button.tsx
+ * @see src/components/socialMidiaButton/socialMidiaButton.tsx
+ * @see src/components/linkComponents/CreateAccountLink.tsx
+ * @see src/components/linkComponents/ForgotPasswordLink.tsx
+ */
+import { OrDivisor } from "../../components/orDivisor";
+import { Button } from "../../components/button";
+import { useLoginForm, type LoginFormValues } from "../../hooks/useLoginForm";
+import { Typography } from "../../utils/themes/Typography";
+import { LoginForm } from "./components/form/loginForm";
+import { SocialButton } from "../../components/socialMidiaButton/socialMidiaButton";
+import GoogleIcon from "../../assets/icons/GoogleIcon.svg?react"
+import LinkedinIcon from '../../assets/icons/LinkedinIcon.svg?react'
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { CreateAccountLink } from "../../components/linkComponents/CreateAccountLink";
+import { ForgotPasswordLink } from "../../components/linkComponents/ForgotPasswordLink";
+import { useState } from "react";
 
+export function LoginScreen() {
+  const form = useLoginForm()
+  const navigate = useNavigate()
+  const [loginError, setLoginError] = useState("")
 
+  const values = form.getValues();
+  console.log(values.password);
+  console.log(values.email);
 
-export function Login() {
-
-
-    const navigate = useNavigate();
-     // Estados dentro do componente
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    // Estados para os erros
-    const [emailError, setEmailError] = useState("")
-    const [passwordError, setPasswordError] = useState("")
-    const [loginErrorMessage, setLoginErrorMessage] = useState("")
-
-    async function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-    
-        // Variáveis para armazenar os erros
-        const emailErrorMsg = validateEmail(email) || "";
-        const passwordErrorMsg = validatePassword(password) || "";
-
-        // Seta todos os erros de uma vez
-        setEmailError(emailErrorMsg);
-        setPasswordError(passwordErrorMsg);
-
-        // Se houver qualquer erro, não faz o login
-        if (emailErrorMsg || passwordErrorMsg) {
-            return;
-        }
-
-        try {
-            const response = await api.post("/login", {
-                email,
-                password,
-            })
-
-            console.log('Login successful!', response.data)
-            setEmail('')
-            setPassword('')
-            navigate('/Home');
-        } catch (error) {
-            console.error('Login error', error)
-            setLoginErrorMessage(getLoginErrorMessage(email, password))
-        }
-    }
-
+  function handleSubmitForm(data: LoginFormValues) {
+    api.post("/login", {
+      email: data.email,
+      password: data.password,
+    })
+    .then(response => {
+      localStorage.setItem("userName", response.data.user.userName)
+      navigate("/home")
+    })
+    .catch(() => {
+      setLoginError("Incorrect email or password")
+    })
   
-
-
-
-
-
-    return (
-        <div className="w-full min-h-screen flex items-center justify-center bg-gray-950 bg-no-repeat bg-cover"
-      style={{
-        backgroundImage: `url(${FormatoFundoAzul})`,
-        backgroundPosition: 'center 90px',
-      }}
-    >
-      <main className="relative w-[500px] h-[565px] mx-[750px] bg-white rounded-4xl overflow-hidden">
-        
-        <h1 className="text-center mt-5 [text-shadow:0px_4px_5px_#00000040] 
-        [font-family:'Roboto-Black',Helvetica] font-extrabold text-black
-         text-4xl tracking-[4.80px] leading-[normal] whitespace-nowrap">
+  }
+  return (
+    <div className="bg-bg_gray h-screen flex items-center justify-center">
+      <div className="bg-white w-full max-w-lg mx-auto py-[30px] px-8
+       justify-center flex flex-col
+       rounded-[28px]
+       ">
+        <Typography className="mb-[45px] text-center text-shadow-lg " variant="H1">
           SIGN IN
-        </h1>
+        </Typography>
 
-        <form onSubmit={handleSubmit} className="flex items-center flex-col my-6">
+        {loginError && (
+          <Typography variant="MiniLabel" className="absolute ml-35 mb-40 text-center text-red-600">
+            {loginError}
+          </Typography>
+        )}
 
-          <div className="flex flex-col relative mt-[50px] mb-[50px]">
-            <input 
-              className={`w-[350px] h-[50px] shadow-[0_6px_10px_1px_rgba(0,0,0,0.25)]
-                } focus:outline-none placeholder:opacity-60 p-5 border-transparent 
-                 [font-family:'Roboto-Black',Helvetica] placeholder:tracking-[7.80px]
-                  text-[16px] font-bold rounded-[50px] bg-white ${emailError ? 'border-red-500' : ''}`}
-              placeholder="Email"
-              value={email}
-              onChange={e => {
-                setEmail(e.target.value)
-                setLoginErrorMessage("")  
-              }}
-            />
-            {emailError && <span className="text-red-500 absolute left-0 top-[50px] font-medium text-sm mt-1 ml-2">
-              {emailError}
-              </span>}
-          </div>
+        <form  onSubmit={form.handleSubmit(handleSubmitForm)} className="px-[25px]">
+          <LoginForm form={form} globalError={!!loginError} />
 
-          <div className="flex flex-col relative mb-[40px]">
-            <input 
-              className={`w-[350px] h-[50px] shadow-[0_6px_10px_1px_rgba(0,0,0,0.25)]
-                 focus:outline-none placeholder:opacity-60 p-5 border-transparent
-                  [font-family:'Roboto-Black',Helvetica] placeholder:tracking-[7.80px] 
-                  text-[16px] font-bold rounded-[50px] bg-white ${passwordError ? 'border-red-500' : ''}`}
-              placeholder="Password"
-              type="password"
-              value={password}
-              onChange={e => {
-                setPassword(e.target.value)
-                setLoginErrorMessage("")
-              }}
-            />
-            {passwordError && <span className="text-red-500 absolute left-0 top-[50px] font-medium text-sm mt-1 ml-2">
-              {passwordError}
-              </span>}
-              
-          </div>  
-
-          <button 
-            type="submit"
-            className="cursor-pointer w-[150px] h-[40px] bg-gray-800 text-white
-             text-[20px] font-bold rounded-[50px] hover:bg-black">
-            LOGIN
-          </button>
-
-          <Link 
-          to="/register"
-          className="[font-family:'Roboto-Black',Helvetica] font-extrabold [text-shadow:0px_4px_5px_#00000040]
-           rounded-[50px] text-[14px] tracking-[2px]
-           mt-10 mr-45
-           ">CREATE ACCOUNT</Link>
+          <div className="mx-auto my-[45px] px-[120px]">
+          <Button>
+            <Typography variant="Label" className="text-white" >
+            LOGIN  
+            </Typography>
+          </Button>
+        </div>
         </form>
-      </main>
+        
+        <div className="flex justify-between mb-[35px]">
+          <CreateAccountLink />
+          <ForgotPasswordLink />
+        </div>
+
+        <div className="mb-[35px]">
+          <OrDivisor />
+        </div>
+
+        <div className="flex space-x-10">
+          <SocialButton 
+          icon={ <GoogleIcon className="mr-[5px]"/> }
+          onClick={() => {} }>
+            <Typography className="pt-[4px]" variant="MiniLabel">
+              Sign in with Google
+            </Typography>
+          </SocialButton>
+
+          <SocialButton 
+          icon={ <LinkedinIcon className="mr-[5px] "/> }
+          onClick={() => {} }>
+            <Typography className="pt-[4px]" variant="MiniLabel">
+              Sign in with Linkedin
+            </Typography>
+          </SocialButton>
+        </div>
+        
+      </div>
     </div>
+
   )
-}
+}  

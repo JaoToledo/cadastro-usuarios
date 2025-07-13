@@ -1,2 +1,4 @@
-export * from './create-user-.schema'
-export * from './user-id-schema'
+export * from './userSchema'
+export * from './userIdSchemas'
+export * from './loginUserSchema'
+export * from './registerUserSchema'

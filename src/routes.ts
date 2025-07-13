@@ -1,13 +1,9 @@
-// É o mapa de rotas da API. que define o que será feito quando X rota for acessada.
-
-import fastify, { FastifyInstance } from "fastify";
 import { RegisterUserController } from './modules/users/controllers/register/RegisterUserController'
-import { ListUserController } from './modules/users/controllers/register/ListUserController'
-import { DeleteUserController } from './modules/users/controllers/register/DeleteUserController'
+import { ListUserController } from './modules/users/controllers/list/ListUserController'
 import { LoginUserController } from './modules/users/controllers/login/LoginUserController'
-import z, { boolean, optional, string } from "zod"
+import z from "zod"
 import { FastifyTypedInstance } from "./types";
-import { RegisterUserSchema, LoginUserSchema, UserSchema } from './Schemas'
+import { RegisterUserSchema, LoginUserSchema, UserSchema } from './modules/users/schemas'
 
 /**
  * Define as rotas da API de usuários, incluindo cadastro, login, listagem e exclusão.
@@ -18,7 +14,7 @@ export async function routes(app: FastifyTypedInstance ) {
     app.get("/users", {
         schema: {
             summary: 'Users list',
-            tags: ['users'],
+            tags: ['List'],
             response: {
                 200: z.object({
                     users: z.array(UserSchema), 
@@ -31,7 +27,7 @@ export async function routes(app: FastifyTypedInstance ) {
 
     app.post("/register", {
         schema: {
-            tags: ['users'],
+            tags: ['Register'],
             summary: 'Create a new account',  
             body: RegisterUserSchema,
            
@@ -48,7 +44,7 @@ export async function routes(app: FastifyTypedInstance ) {
 
     app.post("/login", {
         schema: {
-            tags: ['auth'],
+            tags: ['Login'],
             summary: 'Login to your account',
             body: LoginUserSchema,
             response: {
@@ -65,25 +61,5 @@ export async function routes(app: FastifyTypedInstance ) {
         }
     }, async (request, reply) => {
         return new LoginUserController().handle(request, reply)
-    })
-    
-    app.delete("/user", {
-        schema: {
-            summary: 'Deletar usuário',
-            tags: ['users'],
-            querystring: z.object({
-                id: z.string({
-                    required_error: "Needed User ID",
-                    invalid_type_error: "User ID Must be a string"
-                }).min(1, "ID can't be empty")
-            }),
-            response: {
-                200: z.object({
-                    message: z.string().describe('User Deleted')
-                })
-            }
-        }
-    }, async (request, reply) => { 
-        return new DeleteUserController().handle(request, reply)
     })
 }
