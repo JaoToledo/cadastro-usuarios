@@ -1,6 +1,6 @@
 # Cadastro de Usuários – API
 
-<<<<<<< HEAD
+
 API robusta para autenticação, cadastro e gerenciamento de usuários, desenvolvida com Node.js, Fastify, TypeScript e Prisma ORM.  
 Inclui validação avançada, autenticação JWT, documentação Swagger e integração pronta para frontend React.
 
@@ -8,7 +8,7 @@ Inclui validação avançada, autenticação JWT, documentação Swagger e integ
 
 ## 📋 Funcionalidades
 
-<<<<<<< HEAD
+
 - **Cadastro de usuários** com validação de dados e senha forte
 - **Login seguro** com autenticação JWT
 - **Listagem de usuários** (endpoint para administração)
@@ -20,7 +20,7 @@ Inclui validação avançada, autenticação JWT, documentação Swagger e integ
 
 ## 🚦 Endpoints principais
 
-<<<<<<< HEAD
+
 ### `POST /register` – Cadastro de usuário
 
 - **Body esperado:**
@@ -51,7 +51,7 @@ Inclui validação avançada, autenticação JWT, documentação Swagger e integ
 
 ### `POST /login` – Autenticação
 
-<<<<<<< HEAD
+
 - **Body esperado:**
   ```json
   {
@@ -78,7 +78,7 @@ Inclui validação avançada, autenticação JWT, documentação Swagger e integ
 
 ### `GET /users` – Listagem de usuários
 
-<<<<<<< HEAD
+
 - **Resposta:**
   - `200 OK` com:
     ```json
@@ -99,7 +99,7 @@ Inclui validação avançada, autenticação JWT, documentação Swagger e integ
 
 ## 🔒 Validação e Segurança
 
-<<<<<<< HEAD
+
 - **Senhas nunca são armazenadas em texto plano**: são sempre salvas com hash seguro.
 - **Validação de senha**: feita tanto no backend (Zod) quanto no frontend, garantindo requisitos de segurança.
 - **JWT**: utilizado para autenticação e autorização de endpoints protegidos.
