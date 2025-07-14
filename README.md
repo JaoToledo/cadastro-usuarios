@@ -1,3 +1,6 @@
+<img width="1915" height="919" alt="imagem_2025-07-13_184923466" src="https://github.com/user-attachments/assets/1f0930a9-355c-4956-b3f3-d43a6405ae29" />
+<img width="1915" height="919" alt="imagem_2025-07-13_184923466" src="https://github.com/user-attachments/assets/691f4153-06f8-4c37-a1b0-bdff74c044dc" />
+
 # Cadastro de Usuários – API
 
 
@@ -135,6 +138,7 @@ Lá você pode testar todos os endpoints, ver exemplos de requisição e respost
 - O token JWT retornado no login pode ser armazenado no frontend para autenticação de rotas protegidas.
 - Mensagens de erro detalhadas são retornadas para feedback ao usuário.
 
+⚠️ *Os botões de login com Google e LinkedIn ainda não estão funcionando, mas em breve estarão totalmente operacionais!*
 ---
 
 ## 🚀 Como iniciar o projeto
