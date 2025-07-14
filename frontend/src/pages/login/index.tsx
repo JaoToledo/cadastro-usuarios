@@ -59,20 +59,19 @@ export function LoginScreen() {
   
   }
   return (
-    <div className="bg-bg_gray h-screen flex items-center justify-center">
-      <div className="bg-white w-full max-w-lg mx-auto py-[30px] px-8
-       justify-center flex flex-col
-       rounded-[28px]
-       ">
+    <div className="bg-bg_gray h-screen flex items-center  ">
+      <div className="bg-white w-full max-w-lg mx-auto py-[30px] px-8  rounded-[28px] justify-center items-center ">
         <Typography className="mb-[45px] text-center text-shadow-lg " variant="H1">
           SIGN IN
         </Typography>
 
+        <div className="absolute mt-16 ml-32 "> 
         {loginError && (
-          <Typography variant="MiniLabel" className="absolute ml-35 mb-40 text-center text-red-600">
+          <Typography variant="MiniLabel" className="text-center text-red-600">
             {loginError}
           </Typography>
-        )}
+        )}        
+        </div>
 
         <form  onSubmit={form.handleSubmit(handleSubmitForm)} className="px-[25px]">
           <LoginForm form={form} globalError={!!loginError} />

@@ -7,6 +7,7 @@ export function AuthFormInput<T extends FieldValues>({
   icon,
   withIcon,
   type,
+  globalError,
   ...rest
 }: AuthFormInputProps<T>) {
   return (
@@ -32,9 +33,14 @@ export function AuthFormInput<T extends FieldValues>({
         placeholder:font-normal
         placeholder:-tracking-[-0.3rem]
         shadow-[0px_04px_5px_1px_rgba(0,0,0,0.15)]
-        ${fieldState.error ? "border-red-500" : "border-gray-50"}
+        ${(fieldState.error || globalError) ? "border-red-500" : "border-gray-50"}
         `} 
         />
+        {fieldState.error && (
+            <span className="text-red-500 text-xs absolute left-8 top-full mt-1">
+              {fieldState.error.message}
+            </span>
+          )}
         </div>
     )}
     />

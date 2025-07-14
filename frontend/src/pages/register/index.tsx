@@ -8,7 +8,7 @@ import GoogleIcon from '../../assets/icons/GoogleIcon.svg?react'
 import LinkedinIcon from '../../assets/icons/LinkedinIcon.svg?react'
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { PageTransition } from "../../utils/themes/PageTransition";
+import { PageTransition } from "../../utils/themes/pageTransition";
 
 /**
  * @file index.tsx
@@ -79,10 +79,9 @@ export function RegisterScreen(){
 
   return (
     <PageTransition>
-    <div className="bg-bg_gray h-screen flex items-center justify-center">
+    <div className="bg-bg_gray h-screen flex items-center">
     <div className="
-    bg-white max-w-lg mx-auto w-full py-[30px] px-[50px]                  
-    justify-center rounded-[28px]">
+    bg-white max-w-lg mx-auto w-full py-[30px] px-[50px] rounded-[28px]">
       <div>
       <Typography className="mb-[45px] text-center text-shadow-lg " variant="H1">
           SIGN UP

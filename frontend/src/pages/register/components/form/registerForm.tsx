@@ -21,7 +21,7 @@ import { useState } from "react";
 
 export function RegisterForm({ form }: RegisterFormProps){
 
-  const { formState: { errors }, clearErrors } = form;
+  const { clearErrors } = form;
 
   const [showPasswordBox, setShowPasswordBox] = useState(false);
   const passwordValue = form.watch("password");
@@ -34,11 +34,6 @@ export function RegisterForm({ form }: RegisterFormProps){
         name="fullName"
         placeholder="Full Name"
         />
-        {errors.userName && (
-        <span className="absolute ml-2 text-red-500 text-sm ">
-          {errors.fullName?.message}
-        </span>
-        )}
         </div>
         
         <div>
@@ -47,11 +42,6 @@ export function RegisterForm({ form }: RegisterFormProps){
         name="userName"
         placeholder="User Name"
         />
-        {errors.userName && (
-        <span className="absolute ml-2 text-red-500 text-sm ">
-          {errors.userName.message}
-        </span>
-        )}
         </div>
 
         <div> 
@@ -60,11 +50,6 @@ export function RegisterForm({ form }: RegisterFormProps){
         name="email"
         placeholder="Email"
         />
-        {errors.email && (
-          <span className="absolute ml-2 text-red-500 text-sm">
-            {errors.email?.message}
-          </span>
-        )}
         </div>
         
         <div> 
@@ -76,11 +61,6 @@ export function RegisterForm({ form }: RegisterFormProps){
         onFocus={() => setShowPasswordBox(true)}
         onBlur={() => setShowPasswordBox(false)}
         />
-        {errors.password && (
-          <span className="absolute ml-2 text-red-500 text-sm">
-            {errors.password?.message}
-          </span>
-        )}
         <div className="absolute ml-115 mt-[-115px]">
           {showPasswordBox && (
             <PasswordRequirementsBox password={passwordValue} />
@@ -96,11 +76,6 @@ export function RegisterForm({ form }: RegisterFormProps){
         type="password"
         placeholder="Confirm Password"
         />
-        {errors.confirmPassword && (
-        <span className="absolute ml-2 text-red-500 text-sm ">
-          {errors.confirmPassword.message}
-        </span>
-        )}
       </div>
     </div>
   )

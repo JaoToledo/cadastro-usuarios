@@ -7,4 +7,5 @@ export interface AuthFormInputProps<T extends FieldValues> extends InputHTMLAttr
   withIcon?: boolean
   icon?: React.ReactNode
   type?: string
+  globalError?: boolean
 }

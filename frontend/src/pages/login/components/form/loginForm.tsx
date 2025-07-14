@@ -22,7 +22,7 @@ export function LoginForm({ form, globalError }: loginFormProps) {
 
   return (
     <div className="space-y-[50px]">
-      <div className={globalError ? "border border-red-500 rounded-[50px] " : "" }>
+      <div>
       <AuthFormInput
       control={form.control}
       name="email"
@@ -30,9 +30,10 @@ export function LoginForm({ form, globalError }: loginFormProps) {
       type="email"
       icon={< Profile />}
       withIcon 
+      globalError={globalError}
        />
        </div>
-       <div className={globalError ? "border border-red-500 rounded-[50px] " : "" }>
+       <div>
        <AuthFormInput
       control={form.control}
       type="password"
@@ -40,6 +41,7 @@ export function LoginForm({ form, globalError }: loginFormProps) {
       placeholder="Password"
       icon={< Lock />} 
       withIcon
+      globalError={globalError}
        />
        </div>
     </div>
