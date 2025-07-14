@@ -202,4 +202,8 @@ src/
 
 ---
 
+## Vídeo mostrando o projeto
+
+https://github.com/user-attachments/assets/05faaa16-5780-44a0-b95d-1ae4477b0435
+
 Se precisar de mais detalhes sobre endpoints, exemplos de uso ou integração, consulte a documentação Swagger ou explore os arquivos do projeto.
